@@ -27,6 +27,9 @@ import androidx.compose.ui.unit.dp
 import co.tiagoaguiar.loteriacomposedev.ui.theme.LoteriaTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Green
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -42,14 +45,14 @@ class MainActivity : ComponentActivity() {
                 NavHost(
                     navController = navController,
                     startDestination = "home",
-                ){
-                    composable("home"){
-                        HomeScreen(){
-                          navController.navigate("lottery_form")
+                ) {
+                    composable("home") {
+                        HomeScreen() {
+                            navController.navigate("lottery_form")
                         }
                     }
 
-                    composable("lottery_form"){FormScreen()}
+                    composable("lottery_form") { FormScreen() }
                 }
             }
         }
@@ -101,12 +104,30 @@ fun LotteryItem(name: String, onClick: () -> Unit) {
 
 
 }
+
 @Composable
-fun FormScreen(){
+fun FormScreen() {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.Green
-    ) {  }
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column() {
+            Image(
+                painter = painterResource(id = R.drawable.trevo),
+                contentDescription = stringResource(id = R.string.trevo),
+                modifier = Modifier
+                    .size(100.dp)
+                    .padding(10.dp)
+            )
+
+            Text(
+                text = "Mega Sena",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Green
+            )
+        }
+    }
 }
 
 @Preview(showBackground = true)
@@ -114,5 +135,13 @@ fun FormScreen(){
 fun GreetingPreview() {
     LoteriaTheme {
         HomeScreen {}
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FormPreview() {
+    LoteriaTheme {
+        FormScreen()
     }
 }
